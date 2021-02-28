@@ -4,6 +4,8 @@
 #include "CLizard.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "DrawDebugHelpers.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ACLizard::ACLizard()
@@ -13,8 +15,7 @@ ACLizard::ACLizard()
 
 	// Initialization
 	GetCapsuleComponent()->InitCapsuleSize(10.0f, 10.0f);
-	TargetLocation = FVector(350.0f, -400.0f, 12.325001f);
-	Speed = 150.0f;
+	Speed = 125.0f;
 
 }
 
@@ -29,7 +30,15 @@ void ACLizard::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	AddActorWorldOffset(TargetLocation.GetSafeNormal() * Speed * DeltaTime);
+	FVector Direction = TargetLocation.GetLocation() - GetActorLocation();
+	SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), TargetLocation.GetLocation()));
+
+	if (Direction.Size() > 5.0f)
+	{
+		AddActorWorldOffset(Direction.GetSafeNormal() * Speed * DeltaTime);
+	}
+
+	DrawDebugLine(GetWorld(), GetActorLocation(), TargetLocation.GetLocation(), FColor::Red);
 }
 
 // Called to bind functionality to input

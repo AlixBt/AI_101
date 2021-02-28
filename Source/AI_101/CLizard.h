@@ -12,7 +12,7 @@ class AI_101_API ACLizard : public ACharacter
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	FVector TargetLocation;
+	FTransform TargetLocation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
 	float Speed;
