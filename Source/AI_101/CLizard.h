@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine/StaticMeshActor.h"
+#include "Components/InputComponent.h"
 #include "CLizard.generated.h"
 
 UCLASS()
@@ -12,10 +14,10 @@ class AI_101_API ACLizard : public ACharacter
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	FTransform TargetLocation;
+	float Speed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	float Speed;
+	AStaticMeshActor* Target;
 
 protected:
 	// Called when the game starts or when spawned
@@ -31,4 +33,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Phytagore
+	void CalculateDistance();
+	void CalculateAngle();
 };
