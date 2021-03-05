@@ -36,4 +36,5 @@ public:
 	// Phytagore
 	void CalculateDistance();
 	void CalculateAngle();
+	FVector Cross(FVector V, FVector W);
 };

@@ -49,19 +49,21 @@ void ACLizard::CalculateDistance()
 	FVector LizardLocation = GetActorLocation();
 	FVector CubeLocation = Target->GetActorLocation();
 
-	float XSquared = FGenericPlatformMath::Pow((CubeLocation.X - LizardLocation.X), 2);
+	/*float XSquared = FGenericPlatformMath::Pow((CubeLocation.X - LizardLocation.X), 2);
 	float YSquared = FGenericPlatformMath::Pow((CubeLocation.Y - LizardLocation.Y), 2);
 
-	float Distance = FGenericPlatformMath::Sqrt(XSquared + YSquared);
+	float Distance = FGenericPlatformMath::Sqrt(XSquared + YSquared);*/
 
 	FVector Direction = CubeLocation - LizardLocation;
+
+	AddActorWorldOffset(CubeLocation.GetSafeNormal() * Speed * GetWorld()->DeltaTimeSeconds);
 
 	GEngine->AddOnScreenDebugMessage(-1, 0.0f, FColor::Green, FString::Printf(TEXT("Distance: %f"), Direction.Size()));
 }
 
 void ACLizard::CalculateAngle()
 {
-	FVector FowardDirection = FVector(GetActorForwardVector().X, GetActorForwardVector().Y, 0.0f);
+	/*FVector FowardDirection = FVector(GetActorForwardVector().X, GetActorForwardVector().Y, 0.0f);
 	FVector DistanceToCube = FVector(Target->GetActorLocation().X - GetActorForwardVector().X, Target->GetActorLocation().Y - GetActorForwardVector().Y, 0.0f);
 
 	DrawDebugDirectionalArrow(GetWorld(), GetActorLocation(), FVector(GetActorLocation().X + (FowardDirection.X * 500), GetActorLocation().Y + (FowardDirection.Y * 500), GetActorLocation().Z), 50.0f, FColor::Blue);
@@ -70,9 +72,33 @@ void ACLizard::CalculateAngle()
 	float const Numerator = FVector::DotProduct(FowardDirection, DistanceToCube);
 	float const Denominator = (FowardDirection.Size()) * (DistanceToCube.Size());
 
-	float Angle = FGenericPlatformMath::Acos((Numerator / Denominator));
+	float Angle = FGenericPlatformMath::Acos((Numerator / Denominator));*/
 
-	GEngine->AddOnScreenDebugMessage(-1, 0.0f, FColor::Red, FString::Printf(TEXT("Angle: %f"), FMath::RadiansToDegrees(Angle)));
+
+
+	FRotator OffsetRotation = UKismetMathLibrary::FindLookAtRotation(FVector(GetActorLocation().X, GetActorLocation().Y, 0.0f), FVector(Target->GetActorLocation().X, Target->GetActorLocation().Y, 0.0f));
+	FRotator InterpRotation = UKismetMathLibrary::RInterpTo(GetActorRotation(), OffsetRotation, GetWorld()->DeltaTimeSeconds, 2.5f);
+
+	SetActorRotation(InterpRotation);
+
+	/*int ClockWise = 1;
+	if (Cross(FowardDirection, DistanceToCube).Z < 0.0f)
+	{
+		ClockWise = -1;
+	}*/
+
+	//AddActorWorldRotation(FRotator(0.0f, FMath::RadiansToDegrees(Angle) * ClockWise, 0.0f));
+
+	/*GEngine->AddOnScreenDebugMessage(-1, 0.0f, FColor::Red, FString::Printf(TEXT("Angle: %f"), FMath::RadiansToDegrees(Angle)));*/
+}
+
+FVector ACLizard::Cross(FVector V, FVector W)
+{
+	float XMult = V.Y * W.Z - V.Z * W.Y;
+	float YMult = V.Z * W.X - V.X * W.Z;
+	float ZMult = V.X * W.Y - V.Y * W.X;
+
+	return FVector(XMult, YMult, ZMult);
 }
 
 
