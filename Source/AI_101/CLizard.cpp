@@ -19,7 +19,7 @@ ACLizard::ACLizard()
 
 	// Initialization
 	GetCapsuleComponent()->InitCapsuleSize(10.0f, 10.0f);
-	Speed = 125.0f;
+	Speed = 2.0f;
 
 }
 
@@ -34,8 +34,8 @@ void ACLizard::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	CalculateDistance();
-	CalculateAngle();
+	/*CalculateAngle();
+	CalculateDistance();*/
 }
 
 // Called to bind functionality to input
@@ -44,19 +44,22 @@ void ACLizard::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+FVector ACLizard::GetTargetLocation() const
+{
+	return Target->GetActorLocation();
+}
+
 void ACLizard::CalculateDistance()
 {
-	FVector LizardLocation = GetActorLocation();
-	FVector CubeLocation = Target->GetActorLocation();
-
-	/*float XSquared = FGenericPlatformMath::Pow((CubeLocation.X - LizardLocation.X), 2);
-	float YSquared = FGenericPlatformMath::Pow((CubeLocation.Y - LizardLocation.Y), 2);
-
-	float Distance = FGenericPlatformMath::Sqrt(XSquared + YSquared);*/
+	FVector LizardLocation = FVector(GetActorLocation().X, GetActorLocation().Y, 0.0f);
+	FVector CubeLocation = FVector(Target->GetActorLocation().X, Target->GetActorLocation().Y, 0.0f);
 
 	FVector Direction = CubeLocation - LizardLocation;
 
-	AddActorWorldOffset(CubeLocation.GetSafeNormal() * Speed * GetWorld()->DeltaTimeSeconds);
+	if (Direction.Size() > 15.0f)
+	{
+		AddActorWorldOffset(GetActorForwardVector() * Speed * GetWorld()->DeltaTimeSeconds);
+	}
 
 	GEngine->AddOnScreenDebugMessage(-1, 0.0f, FColor::Green, FString::Printf(TEXT("Distance: %f"), Direction.Size()));
 }
@@ -77,7 +80,7 @@ void ACLizard::CalculateAngle()
 
 
 	FRotator OffsetRotation = UKismetMathLibrary::FindLookAtRotation(FVector(GetActorLocation().X, GetActorLocation().Y, 0.0f), FVector(Target->GetActorLocation().X, Target->GetActorLocation().Y, 0.0f));
-	FRotator InterpRotation = UKismetMathLibrary::RInterpTo(GetActorRotation(), OffsetRotation, GetWorld()->DeltaTimeSeconds, 2.5f);
+	FRotator InterpRotation = UKismetMathLibrary::RInterpTo(GetActorRotation(), OffsetRotation, GetWorld()->DeltaTimeSeconds, 3.5f);
 
 	SetActorRotation(InterpRotation);
 
@@ -85,9 +88,9 @@ void ACLizard::CalculateAngle()
 	if (Cross(FowardDirection, DistanceToCube).Z < 0.0f)
 	{
 		ClockWise = -1;
-	}*/
+	}
 
-	//AddActorWorldRotation(FRotator(0.0f, FMath::RadiansToDegrees(Angle) * ClockWise, 0.0f));
+	AddActorWorldRotation(FRotator(0.0f, FMath::RadiansToDegrees(Angle) * ClockWise, 0.0f));*/
 
 	/*GEngine->AddOnScreenDebugMessage(-1, 0.0f, FColor::Red, FString::Printf(TEXT("Angle: %f"), FMath::RadiansToDegrees(Angle)));*/
 }
