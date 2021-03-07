@@ -44,9 +44,9 @@ void ACLizard::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-FVector ACLizard::GetTargetLocation() const
+AStaticMeshActor* ACLizard::GetTarget() const
 {
-	return Target->GetActorLocation();
+	return Target;
 }
 
 void ACLizard::CalculateDistance()

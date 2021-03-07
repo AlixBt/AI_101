@@ -2,10 +2,11 @@
 
 
 #include "ALizard.h"
+#include "Engine/StaticMeshActor.h"
+#include "Kismet/KismetMathLibrary.h"
 
 UALizard::UALizard()
 {
-    TargetLocation = FVector(500.0f, 0.0f, 0.0f);
 }
 
 void UALizard::NativeInitializeAnimation()
@@ -34,6 +35,7 @@ void UALizard::NativeUpdateAnimation(float DeltaSeconds)
     // Update loop
     if (Npc)
     {
-        TargetLocation = Npc->GetTargetLocation();
+        
+        TargetLocation = UKismetMathLibrary::VInterpTo(TargetLocation, Npc->GetTarget()->GetActorLocation(), DeltaSeconds, 5.0f);
     }
 }

@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Engine/StaticMeshActor.h"
-#include "Components/InputComponent.h"
 #include "CLizard.generated.h"
 
 UCLASS()
@@ -34,7 +33,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// Getters
-	FVector GetTargetLocation() const;
+	AStaticMeshActor* GetTarget() const;
 
 	// Phytagore
 	void CalculateDistance();
