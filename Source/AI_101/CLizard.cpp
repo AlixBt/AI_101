@@ -19,7 +19,9 @@ ACLizard::ACLizard()
 
 	// Initialization
 	GetCapsuleComponent()->InitCapsuleSize(10.0f, 10.0f);
-	Speed = 2.0f;
+	Speed = 0.0f;
+	LizardMass = 10.0f;
+	LizardForce = 50.0f;
 
 }
 
@@ -34,8 +36,15 @@ void ACLizard::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	/*CalculateAngle();
-	CalculateDistance();*/
+	LizardAcceleration = LizardForce / LizardMass;
+	Speed += LizardAcceleration * DeltaTime;
+
+	if (LizardForce > -500.0f)
+	{
+		AddActorWorldOffset(FVector(0.0f, 0.0f, Speed));
+	}
+
+	LizardForce -= 1.0f;
 }
 
 // Called to bind functionality to input

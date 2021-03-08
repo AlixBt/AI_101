@@ -16,6 +16,15 @@ class AI_101_API ACLizard : public ACharacter
 	float Speed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
+	float LizardMass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
+	float LizardAcceleration;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
+	float LizardForce;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
 	AStaticMeshActor* Target;
 
 protected:
