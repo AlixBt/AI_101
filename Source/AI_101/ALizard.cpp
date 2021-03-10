@@ -36,6 +36,6 @@ void UALizard::NativeUpdateAnimation(float DeltaSeconds)
     if (Npc)
     {
         
-        TargetLocation = UKismetMathLibrary::VInterpTo(TargetLocation, Npc->GetTarget()->GetActorLocation(), DeltaSeconds, 5.0f);
+        TargetLocation = UKismetMathLibrary::VInterpTo(TargetLocation, Npc->GetTarget()->GetActorLocation(), DeltaSeconds, 6.0f);
     }
 }

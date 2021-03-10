@@ -13,18 +13,6 @@ class AI_101_API ACLizard : public ACharacter
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	float Speed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	float LizardMass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	float LizardAcceleration;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	float LizardForce;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
 	AStaticMeshActor* Target;
 
 protected:
@@ -38,14 +26,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 	// Getters
 	AStaticMeshActor* GetTarget() const;
-
-	// Phytagore
-	void CalculateDistance();
-	void CalculateAngle();
-	FVector Cross(FVector V, FVector W);
 };
