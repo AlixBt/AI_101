@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Engine/StaticMeshActor.h"
+#include "ATPath.h"
 #include "CLizard.generated.h"
 
 UCLASS()
@@ -13,7 +14,10 @@ class AI_101_API ACLizard : public ACharacter
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	AStaticMeshActor* Target;
+	float m_Speed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
+	AATPath* m_Path;
 
 protected:
 	// Called when the game starts or when spawned
@@ -27,5 +31,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Getters
-	AStaticMeshActor* GetTarget() const;
+
+	// AI_101
+	void FollowPath(float DeltaTime);
 };

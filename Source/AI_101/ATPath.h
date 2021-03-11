@@ -12,7 +12,9 @@ class AI_101_API AATPath : public AActor
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Path", meta = (AllowPrivateAccess = "true", MakeEditWidget = "true"))
-	TArray<FVector> Path;
+	TArray<FVector> m_Path;
+
+	int m_PathIndex;
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,5 +26,14 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	// Getters
+	TArray<FVector> GetPath() const;
+	int GetPathIndex() const;
+	FVector GetCurrentPathPoint() const;
+
+	// Setters
+	void IncrementPathIndex();
+	void SetPathIndex(int PathIndex);
 
 };

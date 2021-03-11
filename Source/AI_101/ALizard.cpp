@@ -14,17 +14,17 @@ void UALizard::NativeInitializeAnimation()
     Super::NativeInitializeAnimation();
 
     // Cache for later use
-    Owner = TryGetPawnOwner();
+    m_Owner = TryGetPawnOwner();
 
     // Ensure that owner is valid.
-    if (!Owner)
+    if (!m_Owner)
     {
         return;
     }
 
-    if (Owner->IsA(ACLizard::StaticClass()))
+    if (m_Owner->IsA(ACLizard::StaticClass()))
     {
-        Npc = Cast<ACLizard>(Owner);
+        m_Npc = Cast<ACLizard>(m_Owner);
     }
 }
 
@@ -33,9 +33,8 @@ void UALizard::NativeUpdateAnimation(float DeltaSeconds)
     Super::NativeUpdateAnimation(DeltaSeconds);
 
     // Update loop
-    if (Npc)
+    if (m_Npc)
     {
-        
-        TargetLocation = UKismetMathLibrary::VInterpTo(TargetLocation, Npc->GetTarget()->GetActorLocation(), DeltaSeconds, 6.0f);
+
     }
 }

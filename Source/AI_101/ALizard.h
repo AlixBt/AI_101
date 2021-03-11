@@ -16,12 +16,10 @@ class AI_101_API UALizard : public UAnimInstance
 	GENERATED_BODY()
 
 	// Utility
-	APawn* Owner;
-	ACLizard* Npc;
+	APawn* m_Owner;
+	ACLizard* m_Npc;
 
 	// Procedural
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	FVector TargetLocation;
 
 public:
 	// Constructors
