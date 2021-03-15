@@ -13,7 +13,8 @@ class AI_101_API AATPath : public AActor
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Path", meta = (AllowPrivateAccess = "true", MakeEditWidget = "true"))
 	TArray<FVector> m_Path;
-
+	
+	UPROPERTY()
 	int m_PathIndex;
 
 protected:
