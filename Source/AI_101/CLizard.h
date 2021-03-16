@@ -13,12 +13,6 @@ class AI_101_API ACLizard : public ACharacter
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	float m_Speed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI_101", meta = (AllowPrivateAccess = "true"))
-	AATPath* m_Path;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -31,7 +25,4 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Getters
-
-	// AI_101
-	void FollowPath(float DeltaTime);
 };
